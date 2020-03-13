@@ -5,3 +5,5 @@
 
 ## 安装
 npm i eslint-config-valeera -D
+
+## 文档
