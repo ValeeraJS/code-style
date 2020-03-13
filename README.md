@@ -7,3 +7,4 @@
 npm i eslint-config-valeera -D
 
 ## 文档
+https://valeerajs.github.io/code-style/docs
