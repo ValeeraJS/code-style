@@ -1,8 +1,8 @@
 module.exports = {
-    rules: {
-        /**
-         * getter 可以返回空或者没有返回值。类似Go的只写属性。
-         */
-        'getter-return': 'off'
-    }
+  rules: {
+    /**
+     * getter 必须有返回值，并且禁止返回空
+     */
+    'getter-return': 'error',
+  },
 };

@@ -9,7 +9,3 @@ node_modules
 ## Built-files
 .cache
 dist
-
-# IDE configurations
-.idea
-.vscode

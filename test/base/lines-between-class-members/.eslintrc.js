@@ -1,11 +1,9 @@
 module.exports = {
-    rules: {
-        /**
-         * 类的成员函数之间是否需要空行，但是属性之间可以不需要。通常属性都是在一行。而函数是多行
-         * @reason 为了可读性需要空一行
-         */
-        'lines-between-class-members': ['error', 'always', {
-            exceptAfterSingleLine: true
-        }]
-    }
+  rules: {
+    /**
+     * 类的成员之间是否需要空行
+     * @reason 有时为了紧凑需要挨在一起，有时为了可读性需要空一行
+     */
+    'lines-between-class-members': 'off',
+  },
 };

@@ -1,0 +1,98 @@
+{
+    "name": "eslint-config-valeera",
+    "version": "0.1.2",
+    "description": "Valeera ESLint 规则",
+    "main": "index.js",
+    "scripts": {
+        "start": "npm run dev",
+        "dev": "run-p dev:eslintrc dev:site",
+        "dev:eslintrc": "nodemon",
+        "dev:site": "parcel site/index.html --out-dir .cache",
+        "build": "run-s build:eslintrc build:site",
+        "build:eslintrc": "ts-node scripts/build.ts",
+        "build:site": "run-s clear:docs build:html",
+        "clear:docs": "rimraf ./docs",
+        "build:html": "parcel build site/index.html --out-dir ./docs/ --public-url ./",
+        "test": "npm run lint && ts-node ./test/index.ts && npm run test:rulesCoverage",
+        "test:rulesCoverage": "ts-node ./scripts/rulesCoverage.ts",
+        "lint": "run-s eslint prettier",
+        "eslint": "eslint --ext .js,.jsx,.ts,.tsx,.vue --ignore-pattern \"bad.*\" .",
+        "prettier": "prettier -l \"./**/*\"",
+        "prettier:fix": "prettier --write -l \"./**/*\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ValeeraJS/code-style.git"
+    },
+    "keywords": [
+        "eslint",
+        "eslintrc",
+        "eslintconfig",
+        "config",
+        "valeera",
+        "javascript",
+        "styleguide",
+        "react",
+        "vue",
+        "typescript"
+    ],
+    "author": "HypnosNova <601670314@qq.com>",
+    "contributors": [],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/ValeeraJS/code-style/issues"
+    },
+    "homepage": "https://github.com/ValeeraJS/code-style/",
+    "publishConfig": {
+        "access": "public"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "npm test",
+            "pre-push": "npm test"
+        }
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@types/cookie": "latest",
+        "@types/doctrine": "latest",
+        "@types/eslint": "latest",
+        "@types/node": "latest",
+        "@types/prettier": "latest",
+        "@types/react": "latest",
+        "@types/react-dom": "latest",
+        "@types/react-tooltip": "latest",
+        "@types/rimraf": "latest",
+        "@types/xml-escape": "latest",
+        "@typescript-eslint/eslint-plugin": "latest",
+        "@typescript-eslint/parser": "latest",
+        "babel-eslint": "latest",
+        "cookie": "latest",
+        "doctrine": "latest",
+        "eslint": "latest",
+        "eslint-config-prettier": "latest",
+        "eslint-plugin-react": "latest",
+        "eslint-plugin-vue": "latest",
+        "husky": "latest",
+        "insert-tag": "latest",
+        "mobi-plugin-color": "latest",
+        "mobi.css": "latest",
+        "nodemon": "latest",
+        "npm-run-all": "latest",
+        "parcel-bundler": "latest",
+        "prettier": "latest",
+        "react": "latest",
+        "react-dom": "latest",
+        "react-tooltip": "latest",
+        "rimraf": "latest",
+        "ts-node": "latest",
+        "typescript": "latest",
+        "vue-eslint-parser": "latest",
+        "xml-escape": "latest"
+    },
+    "greenkeeper": {
+        "ignore": [
+            "ts-node"
+        ]
+    }
+}

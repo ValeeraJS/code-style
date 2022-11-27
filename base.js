@@ -1,26 +1,36 @@
 /**
- * Valeera ESLint 规则
- * https://github.com/ValeeraJS/code-style/
+ * AlloyTeam ESLint 规则
+ * https://alloyteam.github.io/eslint-config-alloy/
  *
  * 贡献者：
- *     HypnosNova <601670314@qq.com>
- *
+ *   xcatliu <xcatliu@gmail.com>
+ *   heyli <lcxfs1991@gmail.com>
+ *   Xuing <admin@xuing.cn>
+ *   Dash Chen <dc3671@users.noreply.github.com>
+ *   DiamondYuan <admin@diamondyuan.com>
+ *   Roy Revelt <roy@codsen.com>
+ *   Swan <1021808625@qq.com>
+ *   kenve <zwei.xie@gmail.com>
+ *   lzw <mingxin2014@gmail.com>
+ *   ryoliu <sfesh@163.com>
+ *   sunhui04 <sunhui04@meituan.com>
+ *   zoubingwu <zoubingwu@gmail.com>
  *
  * 依赖版本：
- *     eslint ^6.7.1
- *     babel-eslint ^10.0.3
- *     eslint-plugin-react ^7.18.3
- *     vue-eslint-parser ^7.0.0
- *     eslint-plugin-vue ^6.2.1
- *     @typescript-eslint/parser ^2.20.0
- *     @typescript-eslint/eslint-plugin ^2.20.0
+ *   eslint ^8.24.0
+ *   @babel/core ^7.19.1
+ *   @babel/eslint-parser ^7.19.1
+ *   @babel/preset-react ^7.18.6
+ *   eslint-plugin-react ^7.31.8
+ *   vue-eslint-parser ^9.1.0
+ *   eslint-plugin-vue ^9.5.1
+ *   @typescript-eslint/parser ^5.38.1
+ *   @typescript-eslint/eslint-plugin ^5.38.1
  *
  * 此文件是由脚本 scripts/build.ts 自动生成
- *
- * @reason 为什么要开启（关闭）此规则
  */
 module.exports = {
-	parser: "babel-eslint",
+	parser: "@babel/eslint-parser",
 	parserOptions: {
 		ecmaVersion: 2019,
 		// ECMAScript modules 模式
@@ -30,49 +40,49 @@ module.exports = {
 			globalReturn: false,
 			// 开启全局 script 模式
 			impliedStrict: true,
-			jsx: true
+			jsx: true,
 		},
-		// 即使没有 babelrc 配置文件，也使用 babel-eslint 来解析
+		// 即使没有 babelrc 配置文件，也使用 @babel/eslint-parser 来解析
 		requireConfigFile: false,
 		// 仅允许 import export 语句出现在模块的顶层
-		allowImportExportEverywhere: false
+		allowImportExportEverywhere: false,
 	},
 	env: {
 		browser: true,
 		node: true,
 		commonjs: true,
-		es6: true
+		es6: true,
 	},
 	// 以当前目录为根目录，不再向上查找 .eslintrc.js
 	root: true,
 	rules: {
 		/**
-		 * setter 可以没有对应的 getter，类似于Go的只写变量。
-		 * getter 可以没有对应的 setter
+		 * setter 必须有对应的 getter，getter 可以没有对应的 setter
 		 */
 		"accessor-pairs": [
 			"error",
 			{
-				setWithoutGet: false,
-				getWithoutSet: false
-			}
+				setWithoutGet: true,
+				getWithoutSet: false,
+			},
 		],
 		/**
 		 * 数组的方法除了 forEach 之外，回调函数必须有返回值
 		 */
 		"array-callback-return": "error",
 		/**
+		 * 箭头函数体必须由大括号包裹
+		 * @reason 代码格式问题，最好由 Prettier 解决
+		 */
+		"arrow-body-style": "off",
+		/**
 		 * 将 var 定义的变量视为块作用域，禁止在块外使用
 		 * @reason 已经禁止使用 var 了
 		 */
 		"block-scoped-var": "off",
 		/**
-		 * callback 之后必须立即 return
-		 */
-		"callback-return": "off",
-		/**
-		 * 变量名必须是 camelcase 风格的
-		 * @reason 很多 api 或文件名都不是 camelcase 风格的
+		 * 变量名必须是 camelCase 风格的
+		 * @reason 很多 api 或文件名都不是 camelCase 风格的
 		 */
 		camelcase: "off",
 		/**
@@ -90,8 +100,8 @@ module.exports = {
 		complexity: [
 			"error",
 			{
-				max: 20
-			}
+				max: 20,
+			},
 		],
 		/**
 		 * 禁止函数在不同分支返回不同类型的值
@@ -111,6 +121,10 @@ module.exports = {
 		 */
 		"default-case": "off",
 		/**
+		 * switch 语句中的 default 必须在最后
+		 */
+		"default-case-last": "error",
+		/**
 		 * 有默认值的参数必须放在函数参数的末尾
 		 */
 		"default-param-last": "off",
@@ -118,7 +132,7 @@ module.exports = {
 		 * 禁止使用 foo['bar']，必须写成 foo.bar
 		 * @reason 当需要写一系列属性的时候，可以更统一
 		 */
-		"dot-notation": "error",
+		"dot-notation": "off",
 		/**
 		 * 必须使用 === 或 !==，禁止使用 == 或 !=
 		 */
@@ -134,8 +148,8 @@ module.exports = {
 			"error",
 			"always",
 			{
-				includeCommonJSModuleExports: false
-			}
+				includeCommonJSModuleExports: false,
+			},
 		],
 		/**
 		 * 函数必须有名字
@@ -146,30 +160,21 @@ module.exports = {
 		 */
 		"func-style": "off",
 		/**
-		 * getter 可以返回空或者没有返回值。类似Go的只写属性。
+		 * getter 必须有返回值，并且禁止返回空
 		 */
-		"getter-return": "off",
-		/**
-		 * require 必须在全局作用域下
-		 */
-		"global-require": "off",
+		"getter-return": "error",
 		/**
 		 * setter 和 getter 必须写在一起
 		 */
 		"grouped-accessor-pairs": "error",
 		/**
-		 * for in 内部可以不使用 hasOwnProperty，有时候确实会需要遍历到对象继承过来的属性
+		 * for in 内部必须有 hasOwnProperty
 		 */
-		"guard-for-in": "off",
-		/**
-		 * callback 中的 err 必须被处理
-		 * @reason 它是通过字符串匹配来判断函数参数 err 的，不准确
-		 */
-		"handle-callback-err": "off",
+		"guard-for-in": "error",
 		/**
 		 * 禁止使用指定的标识符
 		 */
-		"id-blacklist": "off",
+		"id-denylist": "off",
 		/**
 		 * 限制变量名长度
 		 */
@@ -187,16 +192,14 @@ module.exports = {
 		 */
 		"line-comment-position": "off",
 		/**
-		 * 类的成员函数之间是否需要空行，但是属性之间可以不需要。通常属性都是在一行。而函数是多行
-		 * @reason 为了可读性需要空一行
+		 * 类的成员之间是否需要空行
+		 * @reason 有时为了紧凑需要挨在一起，有时为了可读性需要空一行
 		 */
-		"lines-between-class-members": [
-			"error",
-			"always",
-			{
-				exceptAfterSingleLine: true
-			}
-		],
+		"lines-between-class-members": "off",
+		/**
+		 * 使用 a ||= b 替代 a = a || b
+		 */
+		"logical-assignment-operators": "off",
 		/**
 		 * 限制一个文件中类的数量
 		 */
@@ -207,21 +210,20 @@ module.exports = {
 		"max-depth": ["error", 5],
 		/**
 		 * 限制一个文件最多的行数
-		 * @reason 为了可读性必须要考虑这个点
 		 */
-		"max-lines": ["error", 1000],
+		"max-lines": "off",
 		/**
 		 * 限制函数块中的代码行数
 		 */
-		"max-lines-per-function": ["error", 180],
+		"max-lines-per-function": "off",
 		/**
 		 * 回调函数嵌套禁止超过 3 层，多了请用 async await 替代
 		 */
 		"max-nested-callbacks": ["error", 3],
 		/**
-		 * 函数的参数数量限制。不需要开启，尤其是写数学库，参数往往比较多
+		 * 函数的参数禁止超过 3 个
 		 */
-		"max-params": "off",
+		"max-params": ["error", 3],
 		/**
 		 * 限制函数块中的语句数量
 		 */
@@ -229,12 +231,7 @@ module.exports = {
 		/**
 		 * 限制一行中的语句数量
 		 */
-		"max-statements-per-line": [
-			"error",
-			{
-				max: 1
-			}
-		],
+		"max-statements-per-line": "off",
 		/**
 		 * 约束多行注释的格式
 		 * @reason 能写注释已经不容易了，不需要限制太多
@@ -248,8 +245,8 @@ module.exports = {
 			{
 				newIsCap: true,
 				capIsNew: false,
-				properties: true
-			}
+				properties: true,
+			},
 		],
 		/**
 		 * 禁止使用 alert
@@ -275,11 +272,6 @@ module.exports = {
 		 * 禁止使用位运算
 		 */
 		"no-bitwise": "off",
-		/**
-		 * 禁止直接使用 Buffer
-		 * @reason Buffer 构造函数是已废弃的语法
-		 */
-		"no-buffer-constructor": "error",
 		/**
 		 * 禁止使用 caller 或 callee
 		 * @reason 它们是已废弃的语法
@@ -310,13 +302,17 @@ module.exports = {
 		 */
 		"no-const-assign": "error",
 		/**
+		 * 禁止出现不影响值的表达式
+		 */
+		"no-constant-binary-expression": "error",
+		/**
 		 * 禁止将常量作为分支条件判断中的测试表达式，但允许作为循环条件判断中的测试表达式
 		 */
 		"no-constant-condition": [
 			"error",
 			{
-				checkLoops: false
-			}
+				checkLoops: false,
+			},
 		],
 		/**
 		 * 禁止在构造函数中返回值
@@ -369,7 +365,7 @@ module.exports = {
 		/**
 		 * 禁止重复导入模块
 		 */
-		"no-duplicate-imports": "error",
+		"no-duplicate-imports": "off",
 		/**
 		 * 禁止在 else 内使用 return，必须改为提前结束
 		 * @reason else 中使用 return 可以使代码结构更清晰
@@ -381,8 +377,8 @@ module.exports = {
 		"no-empty": [
 			"error",
 			{
-				allowEmptyCatch: true
-			}
+				allowEmptyCatch: true,
+			},
 		],
 		/**
 		 * 禁止在正则表达式中使用空的字符集 []
@@ -445,8 +441,8 @@ module.exports = {
 		"no-implicit-coercion": [
 			"error",
 			{
-				allow: ["!!"]
-			}
+				allow: ["!!"],
+			},
 		],
 		/**
 		 * 禁止在全局作用域下定义变量或申明函数
@@ -487,8 +483,8 @@ module.exports = {
 				skipStrings: true,
 				skipComments: false,
 				skipRegExps: true,
-				skipTemplates: true
-			}
+				skipTemplates: true,
+			},
 		],
 		/**
 		 * 禁止使用 __iterator__
@@ -520,6 +516,10 @@ module.exports = {
 		 */
 		"no-loop-func": "off",
 		/**
+		 * 禁止使用超出 js 精度范围的数字
+		 */
+		"no-loss-of-precision": "error",
+		/**
 		 * 禁止使用 magic numbers
 		 */
 		"no-magic-numbers": "off",
@@ -528,10 +528,6 @@ module.exports = {
 		 * @reason 某些特殊字符很难看出差异，最好不要在正则中使用
 		 */
 		"no-misleading-character-class": "error",
-		/**
-		 * 相同类型的 require 必须放在一起
-		 */
-		"no-mixed-requires": "off",
 		/**
 		 * 禁止连续赋值，比如 foo = bar = 1
 		 */
@@ -564,10 +560,6 @@ module.exports = {
 		 */
 		"no-new-object": "error",
 		/**
-		 * 禁止直接 new require('foo')
-		 */
-		"no-new-require": "error",
-		/**
 		 * 禁止使用 new 来生成 Symbol
 		 */
 		"no-new-symbol": "error",
@@ -575,6 +567,11 @@ module.exports = {
 		 * 禁止使用 new 来生成 String, Number 或 Boolean
 		 */
 		"no-new-wrappers": "error",
+		/**
+		 * 禁止在字符串中使用 \8 \9
+		 * @reason 代码格式问题，最好由 Prettier 解决
+		 */
+		"no-nonoctal-decimal-escape": "off",
 		/**
 		 * 禁止将 Math, JSON 或 Reflect 直接作为函数调用
 		 */
@@ -592,24 +589,15 @@ module.exports = {
 		/**
 		 * 禁止对函数的参数重新赋值
 		 */
-		"no-param-reassign": "off",
-		/**
-		 * 禁止对 __dirname 或 __filename 使用字符串连接
-		 * @reason 不同平台下的路径符号不一致，建议使用 path 处理平台差异性
-		 */
-		"no-path-concat": "error",
+		"no-param-reassign": "error",
 		/**
 		 * 禁止使用 ++ 或 --
 		 */
 		"no-plusplus": "off",
 		/**
-		 * 禁止使用 process.env.NODE_ENV
+		 * 禁止在 Promise 的回调函数中直接 return
 		 */
-		"no-process-env": "off",
-		/**
-		 * 禁止使用 process.exit(0)
-		 */
-		"no-process-exit": "off",
+		"no-promise-executor-return": "error",
 		/**
 		 * 禁止使用 __proto__
 		 * @reason __proto__ 是已废弃的语法
@@ -630,6 +618,10 @@ module.exports = {
 		 */
 		"no-regex-spaces": "error",
 		/**
+		 * 禁止导出指定的变量名
+		 */
+		"no-restricted-exports": "off",
+		/**
 		 * 禁止使用指定的全局变量
 		 */
 		"no-restricted-globals": "off",
@@ -637,10 +629,6 @@ module.exports = {
 		 * 禁止导入指定的模块
 		 */
 		"no-restricted-imports": "off",
-		/**
-		 * 禁止使用指定的模块
-		 */
-		"no-restricted-modules": "off",
 		/**
 		 * 禁止使用指定的对象属性
 		 */
@@ -656,11 +644,12 @@ module.exports = {
 		/**
 		 * 禁止在 return 语句里使用 await
 		 */
-		"no-return-await": "error",
+		"no-return-await": "off",
 		/**
 		 * 禁止出现 location.href = 'javascript:void(0)';
+		 * @reason 有些场景下还是需要用到这个
 		 */
-		"no-script-url": "error",
+		"no-script-url": "off",
 		/**
 		 * 禁止将自己赋值给自己
 		 */
@@ -691,14 +680,9 @@ module.exports = {
 		 */
 		"no-sparse-arrays": "error",
 		/**
-		 * 禁止使用 node 中的同步的方法，比如 fs.readFileSync
-		 */
-		"no-sync": "off",
-		/**
 		 * 禁止在普通字符串中出现模版字符串里的变量形式
-		 * @reason 在语法高亮的情况下一眼就能知道是不是模板字符串。而且确实有情况文本本身内容就带${}
 		 */
-		"no-template-curly-in-string": "off",
+		"no-template-curly-in-string": "error",
 		/**
 		 * 禁止使用三元表达式
 		 */
@@ -741,6 +725,10 @@ module.exports = {
 		 */
 		"no-unreachable": "error",
 		/**
+		 * 禁止在第一轮循环时就一定会退出循环的情况出现
+		 */
+		"no-unreachable-loop": "error",
+		/**
 		 * 禁止在 finally 中出现 return, throw, break 或 continue
 		 * @reason finally 中的语句会在 try 之前执行
 		 */
@@ -750,6 +738,10 @@ module.exports = {
 		 */
 		"no-unsafe-negation": "error",
 		/**
+		 * 禁止使用不安全的 optional chaining
+		 */
+		"no-unsafe-optional-chaining": "error",
+		/**
 		 * 禁止无用的表达式
 		 */
 		"no-unused-expressions": [
@@ -757,14 +749,18 @@ module.exports = {
 			{
 				allowShortCircuit: true,
 				allowTernary: true,
-				allowTaggedTemplates: true
-			}
+				allowTaggedTemplates: true,
+			},
 		],
 		/**
 		 * 禁止出现没用到的 label
 		 * @reason 已经禁止使用 label 了
 		 */
 		"no-unused-labels": "off",
+		/**
+		 * 禁止类出现未使用的私有成员
+		 */
+		"no-unused-private-class-members": "error",
 		/**
 		 * 已定义的变量必须使用
 		 */
@@ -774,8 +770,8 @@ module.exports = {
 				vars: "all",
 				args: "none",
 				ignoreRestSiblings: false,
-				caughtErrors: "none"
-			}
+				caughtErrors: "none",
+			},
 		],
 		/**
 		 * 变量必须先定义后使用
@@ -785,9 +781,14 @@ module.exports = {
 			{
 				variables: false,
 				functions: false,
-				classes: false
-			}
+				classes: false,
+			},
 		],
+		/**
+		 * 禁止正则表达式中出现无用的回溯引用
+		 * @reason 某些回溯引用语法上没问题，但是会永远匹配到空字符串
+		 */
+		"no-useless-backreference": "error",
 		/**
 		 * 禁止出现没必要的 call 或 apply
 		 */
@@ -846,39 +847,24 @@ module.exports = {
 		"object-shorthand": "off",
 		/**
 		 * 禁止变量申明时用逗号一次申明多个
-		 * @reason 没必要。有时候写一起代码更清晰
 		 */
-		"one-var": "off",
+		"one-var": ["error", "never"],
 		/**
 		 * 必须使用 x = x + y 而不是 x += y
 		 */
 		"operator-assignment": "off",
 		/**
 		 * 限制语句之间的空行规则，比如变量定义完之后必须要空行
-		 * return还有定义变量之后需要空格。使代码更加清晰
 		 */
-		"padding-line-between-statements": [
-			"error",
-			{
-				blankLine: "always",
-				prev: "*",
-				next: "return"
-			},
-			{
-				blankLine: "always",
-				prev: ["const", "let", "var"],
-				next: "*"
-			},
-			{
-				blankLine: "any",
-				prev: ["const", "let", "var"],
-				next: ["const", "let", "var"]
-			}
-		],
+		"padding-line-between-statements": "off",
+		/**
+		 * 回调函数必须使用箭头函数
+		 */
+		"prefer-arrow-callback": "error",
 		/**
 		 * 申明后不再被修改的变量必须使用 const 来申明
 		 */
-		"prefer-const": "error",
+		"prefer-const": "off",
 		/**
 		 * 必须使用解构赋值
 		 */
@@ -897,6 +883,10 @@ module.exports = {
 		 */
 		"prefer-numeric-literals": "off",
 		/**
+		 * 使用 Object.hasOwn() 而不是 Object.prototype.hasOwnProperty.call()
+		 */
+		"prefer-object-has-own": "error",
+		/**
 		 * 必须使用 ... 而不是 Object.assign，除非 Object.assign 的第一个参数是一个变量
 		 */
 		"prefer-object-spread": "error",
@@ -911,7 +901,7 @@ module.exports = {
 		/**
 		 * 必须使用 ...args 而不是 arguments
 		 */
-		"prefer-rest-params": "error",
+		"prefer-rest-params": "off",
 		/**
 		 * 必须使用 ... 而不是 apply，比如 foo(...args)
 		 */
@@ -945,28 +935,12 @@ module.exports = {
 		"require-yield": "error",
 		/**
 		 * 导入必须按规则排序
-		 * @reason 在写库的时候会有大量API和引用。按照字母排序更容易找到相应API
 		 */
-		"sort-imports": [
-			"error",
-			{
-				ignoreCase: true,
-				ignoreMemberSort: false,
-				memberSyntaxSortOrder: ["none", "all", "multiple", "single"]
-			}
-		],
+		"sort-imports": "off",
 		/**
 		 * 对象字面量的键名必须排好序
-		 * @reason 有利于寻找ey
 		 */
-		"sort-keys": [
-			"error",
-			"asc",
-			{
-				caseSensitive: true,
-				natural: false
-			}
-		],
+		"sort-keys": "off",
 		/**
 		 * 变量申明必须排好序
 		 */
@@ -978,11 +952,12 @@ module.exports = {
 			"error",
 			"always",
 			{
+				markers: ["/"],
 				block: {
 					exceptions: ["*"],
-					balanced: true
-				}
-			}
+					balanced: true,
+				},
+			},
 		],
 		/**
 		 * 禁止使用 'strict';
@@ -1011,8 +986,8 @@ module.exports = {
 			"error",
 			"never",
 			{
-				onlyEquality: true
-			}
-		]
-	}
+				onlyEquality: true,
+			},
+		],
+	},
 };

@@ -1,25 +1,40 @@
 /**
- * Valeera ESLint 规则
- * https://github.com/ValeeraJS/code-style/
+ * AlloyTeam ESLint 规则
+ * https://alloyteam.github.io/eslint-config-alloy/
  *
  * 贡献者：
- *     HypnosNova <601670314@qq.com>
- *
+ *   xcatliu <xcatliu@gmail.com>
+ *   heyli <lcxfs1991@gmail.com>
+ *   Xuing <admin@xuing.cn>
+ *   Dash Chen <dc3671@users.noreply.github.com>
+ *   DiamondYuan <admin@diamondyuan.com>
+ *   Roy Revelt <roy@codsen.com>
+ *   Swan <1021808625@qq.com>
+ *   kenve <zwei.xie@gmail.com>
+ *   lzw <mingxin2014@gmail.com>
+ *   ryoliu <sfesh@163.com>
+ *   sunhui04 <sunhui04@meituan.com>
+ *   zoubingwu <zoubingwu@gmail.com>
  *
  * 依赖版本：
- *     eslint ^6.7.1
- *     babel-eslint ^10.0.3
- *     eslint-plugin-react ^7.18.3
- *     vue-eslint-parser ^7.0.0
- *     eslint-plugin-vue ^6.2.1
- *     @typescript-eslint/parser ^2.20.0
- *     @typescript-eslint/eslint-plugin ^2.20.0
+ *   eslint ^8.24.0
+ *   @babel/core ^7.19.1
+ *   @babel/eslint-parser ^7.19.1
+ *   @babel/preset-react ^7.18.6
+ *   eslint-plugin-react ^7.31.8
+ *   vue-eslint-parser ^9.1.0
+ *   eslint-plugin-vue ^9.5.1
+ *   @typescript-eslint/parser ^5.38.1
+ *   @typescript-eslint/eslint-plugin ^5.38.1
  *
  * 此文件是由脚本 scripts/build.ts 自动生成
- *
- * @reason 为什么要开启（关闭）此规则
  */
 module.exports = {
+	parserOptions: {
+		babelOptions: {
+			presets: ["@babel/preset-react"],
+		},
+	},
 	plugins: ["react"],
 	rules: {
 		/**
@@ -29,7 +44,6 @@ module.exports = {
 		"react/boolean-prop-naming": "off",
 		/**
 		 * <button> 必须有 type 属性
-		 * @reason button问题只出在form内如果没有type就会触发submit操作。但是现在几乎不会使用表单，增加这个限制反而正常代码写起来很繁琐。
 		 */
 		"react/button-has-type": "off",
 		/**
@@ -74,6 +88,14 @@ module.exports = {
 		 */
 		"react/function-component-definition": "off",
 		/**
+		 * hook 的返回值必须与 useState 的解构对应
+		 */
+		"react/hook-use-state": "off",
+		/**
+		 * iframe 组件必须添加 sandbox 属性
+		 */
+		"react/iframe-missing-sandbox": "error",
+		/**
 		 * 布尔值的属性必须显式的声明值为 true
 		 */
 		"react/jsx-boolean-value": "off",
@@ -100,8 +122,8 @@ module.exports = {
 		"react/jsx-key": [
 			"error",
 			{
-				checkFragmentShorthand: true
-			}
+				checkFragmentShorthand: true,
+			},
 		],
 		/**
 		 * 限制 jsx 层级
@@ -114,11 +136,19 @@ module.exports = {
 		/**
 		 * 禁止在 jsx 中使用像注释的字符串
 		 */
-		"react/jsx-no-comment-textnodes": "off",
+		"react/jsx-no-comment-textnodes": "error",
+		/**
+		 * 禁止使用不稳定的值作为 Context.Provider 的 value
+		 */
+		"react/jsx-no-constructed-context-values": "error",
 		/**
 		 * 禁止出现重复的 props
 		 */
 		"react/jsx-no-duplicate-props": "error",
+		/**
+		 * 使用 && 渲染组件时，禁止条件是 0 '' 或 NaN
+		 */
+		"react/jsx-no-leaked-render": "off",
 		/**
 		 * 禁止在 jsx 中出现字符串
 		 */
@@ -178,6 +208,10 @@ module.exports = {
 		 */
 		"react/no-array-index-key": "off",
 		/**
+		 * 类组件中的生命周期函数不要使用箭头函数
+		 */
+		"react/no-arrow-function-lifecycle": "off",
+		/**
 		 * 禁止将 children 作为一个 prop
 		 */
 		"react/no-children-prop": "error",
@@ -211,6 +245,11 @@ module.exports = {
 		 */
 		"react/no-find-dom-node": "error",
 		/**
+		 * 禁用指定的 html 属性
+		 * @reason 需要指定特定属性时才需要开启
+		 */
+		"react/no-invalid-html-attribute": "off",
+		/**
 		 * 禁止使用 isMounted
 		 * @reason 它是已废弃的语法
 		 */
@@ -220,6 +259,10 @@ module.exports = {
 		 * @reason 有一个 bug：https://github.com/yannickcr/eslint-plugin-react/issues/1181
 		 */
 		"react/no-multi-comp": "off",
+		/**
+		 * 禁止在 jsx 中使用命名空间
+		 */
+		"react/no-namespace": "error",
 		/**
 		 * 禁止在 React.PureComponent 中使用 shouldComponentUpdate
 		 */
@@ -258,9 +301,17 @@ module.exports = {
 		"react/no-unsafe": [
 			"error",
 			{
-				checkAliases: true
-			}
+				checkAliases: true,
+			},
 		],
+		/**
+		 * 禁止在组件内使用不稳定的组件
+		 */
+		"react/no-unstable-nested-components": "error",
+		/**
+		 * 禁止在类组件中定义未使用的方法
+		 */
+		"react/no-unused-class-component-methods": "off",
 		/**
 		 * 禁止出现未使用的 propTypes
 		 * @reason 类型相关的约束交给 TypeScript
@@ -280,6 +331,10 @@ module.exports = {
 		 * 必须使用 Class 的形式创建组件
 		 */
 		"react/prefer-es6-class": ["error", "always"],
+		/**
+		 * 使用 Flow 时，props 必须设置为精确的类型
+		 */
+		"react/prefer-exact-props": "off",
 		/**
 		 * 使用 Flow 时，props 必须设置为只读的
 		 */
@@ -339,6 +394,6 @@ module.exports = {
 		/**
 		 * img, br 标签中禁止有 children
 		 */
-		"react/void-dom-elements-no-children": "error"
-	}
+		"react/void-dom-elements-no-children": "error",
+	},
 };

@@ -2,7 +2,7 @@
 .DS_Store
 .idea
 .editorconfig
-package-lock.json
+pnpm-lock.yaml
 .npmrc
 
 # Ignored suffix
@@ -10,10 +10,11 @@ package-lock.json
 *.md
 *.svg
 *.png
+*.ico
 *ignore
 
 ## Local
-site/vendor
+site/public
 test/base/no-cond-assign/bad.js
 test/base/no-irregular-whitespace/bad.js
 test/base/no-labels/bad.js
@@ -23,6 +24,7 @@ test/react/jsx-fragments/bad.js
 test/react/self-closing-comp/bad.js
 test/vue/no-irregular-whitespace/bad.vue
 test/vue/no-irregular-whitespace/good.vue
+.husky
 
 ## Built-files
 .cache
