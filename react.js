@@ -4,17 +4,7 @@
  *
  * 贡献者：
  *   xcatliu <xcatliu@gmail.com>
- *   heyli <lcxfs1991@gmail.com>
- *   Xuing <admin@xuing.cn>
- *   Dash Chen <dc3671@users.noreply.github.com>
- *   DiamondYuan <admin@diamondyuan.com>
- *   Roy Revelt <roy@codsen.com>
- *   Swan <1021808625@qq.com>
- *   kenve <zwei.xie@gmail.com>
- *   lzw <mingxin2014@gmail.com>
- *   ryoliu <sfesh@163.com>
- *   sunhui04 <sunhui04@meituan.com>
- *   zoubingwu <zoubingwu@gmail.com>
+ *
  *
  * 依赖版本：
  *   eslint ^8.24.0
