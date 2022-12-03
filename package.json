@@ -1,5 +1,5 @@
 {
-  "name": "eslint-config-alloy",
+  "name": "eslint-config-valeera",
   "version": "4.7.0",
   "description": "AlloyTeam ESLint 规则",
   "keywords": [
@@ -15,9 +15,9 @@
     "vue",
     "typescript"
   ],
-  "homepage": "https://alloyteam.github.io/eslint-config-alloy/",
+  "homepage": "https://github.com/ValeeraJS/code-style",
   "bugs": {
-    "url": "https://github.com/AlloyTeam/eslint-config-alloy/issues"
+    "url": "https://github.com/ValeeraJS/code-style/issues"
   },
   "license": "MIT",
   "author": "xcatliu <xcatliu@gmail.com>",
@@ -25,7 +25,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AlloyTeam/eslint-config-alloy.git"
+    "url": "git+https://github.com/ValeeraJS/code-style.git"
   },
   "scripts": {
     "start": "pnpm dev",
